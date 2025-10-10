@@ -9,7 +9,11 @@ import { calculateTie, calculateWinner } from "../utils/helper";
 import type { GameState } from "../types/tictactoe";
 import { Button, Divider, TextField } from "@mui/material";
 
-const Game = () => {
+interface GameProps {
+  userName: string;
+}
+
+const Game = ({ userName }: GameProps) => {
   const [gameState, setGameState] = useState<GameState>({
     history: [],
     step: 0,
@@ -23,7 +27,7 @@ const Game = () => {
 
   const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">("X");
 
-  const [player1, setPlayer1] = useState<string>("Player1");
+  const [player1, setPlayer1] = useState<string>(userName);
   const [player2, setPlayer2] = useState<string>("Player2");
   const [isEdit, setIsEditMode] = useState<boolean>(false);
 

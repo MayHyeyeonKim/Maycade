@@ -18,13 +18,14 @@ import SettingsModal from "./components/modals/MainSetting";
 import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
+import { useUser } from "./contexts/UserContext";
 
 function App() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [userName, setUserName] = useState("May");
+  // const [userName, setUserName] = useState("May");
   const [comingSoon, setComingSoon] = useState(false);
-
+  const { userName, setUserName } = useUser();
   const handleSettingsClick = () => {
     setOpen(true);
   };
