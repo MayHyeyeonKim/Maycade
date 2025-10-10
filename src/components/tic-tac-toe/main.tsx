@@ -1,14 +1,24 @@
-import { Container, Typography, Box, IconButton } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  IconButton,
+  Button,
+  Stack,
+} from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
 import Game from "./components/Game";
 import { useUser } from "../../contexts/UserContext";
+import { pink } from "@mui/material/colors";
 
 const Main = () => {
   const navigate = useNavigate();
   console.log("Tic Tac Toe main component");
 
   const { userName } = useUser();
+
+  const levels = ["Easy", "Medium", "Hard"];
   return (
     <Container
       maxWidth="md"
@@ -39,7 +49,22 @@ const Main = () => {
         <Typography variant="body1" sx={{ color: "white", mb: 3 }}>
           Play Tic Tac Toe now! Challenge a friend on the 3x3 grid.
         </Typography>
-        <Game userName={userName} />
+
+        {/* level */}
+        <Stack
+          direction="column"
+          spacing={2}
+          justifyContent="center"
+          sx={{ mb: 3 }}
+        >
+          {levels.map((level, index) => (
+            <Button key={index} sx={{ mb: 3, backgroundColor: "white" }}>
+              {level}
+            </Button>
+          ))}
+        </Stack>
+
+        {/* <Game userName={userName} /> */}
         <IconButton
           color="primary"
           onClick={() => navigate("/")}
