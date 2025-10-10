@@ -4,7 +4,7 @@ import WinnerTieNextPlayer from "./WinnerTieNextPlayer";
 import Stack from "@mui/material/Stack";
 import Log from "./Log";
 import Board from "./Board";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { calculateTie, calculateWinner } from "../utils/helper";
 import type { GameState } from "../types/tictactoe";
 import { Button, Divider, TextField } from "@mui/material";
@@ -30,6 +30,10 @@ const Game = ({ userName }: GameProps) => {
   const [player1, setPlayer1] = useState<string>(userName);
   const [player2, setPlayer2] = useState<string>("Player2");
   const [isEdit, setIsEditMode] = useState<boolean>(false);
+
+  useEffect(() => {
+    setPlayer1(userName);
+  }, [userName]);
 
   const handleClick = useCallback(
     (i: number) => {
