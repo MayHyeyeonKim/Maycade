@@ -8,12 +8,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { calculateTie, calculateWinner } from "../utils/helper";
 import type { GameState } from "../types/tictactoe";
 import { Button, Divider, TextField } from "@mui/material";
+import { useUser } from "../../../contexts/user/useUser";
 
-interface GameProps {
-  userName: string;
-}
-
-const Game = ({ userName }: GameProps) => {
+const Game = () => {
   const [gameState, setGameState] = useState<GameState>({
     history: [],
     step: 0,
@@ -25,6 +22,7 @@ const Game = ({ userName }: GameProps) => {
     Array(9).fill(null)
   );
 
+  const { userName } = useUser();
   const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">("X");
 
   const [player1, setPlayer1] = useState<string>(userName);
@@ -83,13 +81,14 @@ const Game = ({ userName }: GameProps) => {
           // border: "10px solid #D9C4B0",
           borderRadius: 2,
           backgroundColor: "#f8f9fa",
-          minHeight: "85vh",
+          maxHeight: "72vh",
           px: 2,
           py: 4,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          gap: 2,
         }}
       >
         {/* <Typography
@@ -108,9 +107,6 @@ const Game = ({ userName }: GameProps) => {
 
         <Box
           sx={{
-            px: 8,
-            py: 2,
-            mb: 3,
             borderRadius: 3,
             backgroundColor: "#fff",
             maxWidth: 1000,

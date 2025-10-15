@@ -2,14 +2,7 @@ import RockPaperScissors from "./components/rork-paper-scissors/main";
 import TicTacToe from "./components/tic-tac-toe/main";
 import Sudoku from "./components/sudoku/main";
 
-import {
-  Container,
-  Typography,
-  Box,
-  IconButton,
-  Card,
-  CardContent,
-} from "@mui/material";
+import { Typography, Box, IconButton, Card, CardContent } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PanToolIcon from "@mui/icons-material/PanTool";
 import GridOnIcon from "@mui/icons-material/GridOn";
@@ -18,12 +11,11 @@ import SettingsModal from "./components/modals/MainSetting";
 import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
-import { useUser } from "./contexts/UserContext";
+import { useUser } from "./contexts/user/useUser";
 
 function App() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  // const [userName, setUserName] = useState("May");
   const [comingSoon, setComingSoon] = useState(false);
   const { userName, setUserName } = useUser();
   const handleSettingsClick = () => {
@@ -53,14 +45,14 @@ function App() {
         <Route
           path="/"
           element={
-            <Container
-              maxWidth="lg"
+            <Box
               sx={{
                 p: 5,
                 textAlign: "center",
                 justifyContent: "center",
                 background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                 minHeight: "100vh",
+                width: "100%",
                 color: "white",
               }}
             >
@@ -197,7 +189,7 @@ function App() {
                 userName={userName}
                 setUserName={setUserName}
               />
-            </Container>
+            </Box>
           }
         />
         <Route path="/tic-tac-toe" element={<TicTacToe />} />

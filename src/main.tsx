@@ -5,16 +5,17 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import CssBaseline from "@mui/material/CssBaseline";
 import App from "./App";
-import { UserProvider } from "./contexts/UserContext";
+import "./index.css";
+import { AppProviders } from "./contexts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <UserProvider>
+        <AppProviders>
           <CssBaseline />
           <App />
-        </UserProvider>
+        </AppProviders>
       </ThemeProvider>
     </BrowserRouter>
   </StrictMode>
