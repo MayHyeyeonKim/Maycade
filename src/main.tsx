@@ -6,7 +6,7 @@ import theme from "./theme";
 import CssBaseline from "@mui/material/CssBaseline";
 import App from "./App";
 import "./index.css";
-import { AppProviders } from "./contexts";
+import { AppProviders } from "./contexts/AppProviders";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

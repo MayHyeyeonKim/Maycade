@@ -3,23 +3,31 @@ import {
   Typography,
   Box,
   IconButton,
-  // Button,
+  Button,
   Stack,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
 import Game from "./components/Game";
+import { useState } from "react";
 // import { pink } from "@mui/material/colors";
 
 const Main = () => {
   const navigate = useNavigate();
   console.log("Tic Tac Toe main component");
 
-  // const levels = {
-  //   Easy: 3,
-  //   Medium: 4,
-  //   Hard: 5,
-  // };
+  const [size, setSize] = useState<number | null>(null);
+
+  const levels = {
+    Easy: 3,
+    Medium: 4,
+    Hard: 5,
+  } as const;
+
+  const handleLevelClick = (size: number) => {
+    console.log("Level clicked", size);
+    setSize(size);
+  };
 
   return (
     <Container
@@ -41,7 +49,7 @@ const Main = () => {
       <Box
         sx={{
           p: 4,
-          // backgroundColor: "rgba(255, 255, 255, 0.1)",
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
           borderRadius: 2,
           transform: "scale(0.9)",
           backdropFilter: "blur(10px)",
@@ -60,16 +68,21 @@ const Main = () => {
           direction="column"
           spacing={2}
           justifyContent="center"
-          sx={{ mb: 3 }}
+          sx={{ m: 3, p: 4 }}
         >
-          {/* {levels.map((level, index) => (
-            <Button key={index} sx={{ mb: 3, backgroundColor: "white" }}>
+          {Object.entries(levels).map(([level, size]) => (
+            <Button
+              key={level}
+              sx={{ mb: 3, backgroundColor: "white" }}
+              onClick={() => handleLevelClick(size)}
+            >
               {level}
             </Button>
-          ))} */}
+          ))}
         </Stack>
 
-        <Game />
+        {size !== null && <Game size={size} />}
+
         <IconButton
           color="primary"
           onClick={() => navigate("/")}

@@ -4,6 +4,7 @@ import { forwardRef, useRef } from "react";
 interface BoardProps {
   board: Array<"X" | "O" | null>;
   onClick: (i: number) => void;
+  size: number;
 }
 
 const CustomButton = forwardRef<
@@ -11,7 +12,7 @@ const CustomButton = forwardRef<
   React.ComponentProps<typeof Button>
 >((props, ref) => <Button component="button" {...props} ref={ref} />);
 
-const Board = ({ board, onClick }: BoardProps) => {
+const Board = ({ board, onClick, size }: BoardProps) => {
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const handleClick = (i: number) => {
@@ -39,7 +40,7 @@ const Board = ({ board, onClick }: BoardProps) => {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 100px)",
+          gridTemplateColumns: `repeat(${size}, 100px)`,
           gap: 1,
         }}
       >

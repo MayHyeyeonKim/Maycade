@@ -10,7 +10,11 @@ import type { GameState } from "../types/tictactoe";
 import { Button, Divider, TextField } from "@mui/material";
 import { useUser } from "../../../contexts/user/useUser";
 
-const Game = () => {
+interface GameProps {
+  size: number;
+}
+
+const Game = ({ size }: GameProps) => {
   const [gameState, setGameState] = useState<GameState>({
     history: [],
     step: 0,
@@ -19,7 +23,7 @@ const Game = () => {
   console.log("gameState: ", gameState);
 
   const [board, setBoard] = useState<Array<"X" | "O" | null>>(
-    Array(9).fill(null)
+    Array(size * size).fill(null)
   );
 
   const { userName } = useUser();
@@ -28,10 +32,6 @@ const Game = () => {
   const [player1, setPlayer1] = useState<string>(userName);
   const [player2, setPlayer2] = useState<string>("Player2");
   const [isEdit, setIsEditMode] = useState<boolean>(false);
-
-  useEffect(() => {
-    setPlayer1(userName);
-  }, [userName]);
 
   const handleClick = useCallback(
     (i: number) => {
@@ -74,21 +74,27 @@ const Game = () => {
     setCurrentPlayer(index % 2 !== 0 ? "X" : "O");
   };
 
+  useEffect(() => {
+    setBoard(Array(size * size).fill(null));
+    setGameState({ history: [], step: 0 });
+    setCurrentPlayer("X");
+  }, [size]);
+
   return (
     <>
       <Box
         sx={{
           // border: "10px solid #D9C4B0",
           borderRadius: 2,
-          backgroundColor: "#f8f9fa",
+          // backgroundColor: "#f8f9fa",
           maxHeight: "72vh",
-          px: 2,
-          py: 4,
+          // px: 2,
+          // py: 2,
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 2,
+          // alignItems: "center",
+          // justifyContent: "center",
+          // gap: 2,
         }}
       >
         {/* <Typography
@@ -114,7 +120,7 @@ const Game = () => {
             // border: "2px solid #D9C4B0",
           }}
         >
-          <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+          <Box sx={{ display: "flex", gap: 3, m: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <Typography
                 variant="h6"
@@ -152,19 +158,21 @@ const Game = () => {
         </Box>
 
         <Box
-          sx={{
-            p: 4,
-            borderRadius: 3,
-            backgroundColor: "#fff",
-            maxWidth: 1000,
-            mx: "auto",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+        // sx={{
+        //   p: 4,
+        //   borderRadius: 3,
+        //   backgroundColor: "#fff",
+        //   maxWidth: 1000,
+        //   mx: "auto",
+        //   display: "flex",
+        //   flexDirection: "column",
+        //   alignItems: "center",
+        //   justifyContent: "center",
+        // }}
         >
-          <Box sx={{ mb: 3, textAlign: "center", justifyContent: "center" }}>
+          <Box
+            sx={{ p: 2, m: 4, textAlign: "center", justifyContent: "center" }}
+          >
             <WinnerTieNextPlayer
               winner={winner}
               tie={tie}
@@ -187,7 +195,7 @@ const Game = () => {
               justifyContent="center"
               sx={{ mt: 2 }}
             >
-              <Board board={board} onClick={handleClick} />
+              <Board board={board} onClick={handleClick} size={size} />
               <Log
                 onReset={handleReset}
                 gameState={gameState}
