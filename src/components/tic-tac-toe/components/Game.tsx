@@ -49,6 +49,31 @@ const Game = ({ size }: GameProps) => {
     [gameState, board, currentPlayer]
   );
 
+  /** Computer auto play */
+
+  useEffect(() => {
+    if (
+      currentPlayer === "O" &&
+      !calculateWinner(board) &&
+      !calculateTie(board)
+    ) {
+      const emptyBoard = board
+        .map((v, i) => (v === null ? i : null))
+        .filter((v) => v !== null) as number[];
+
+      if (emptyBoard.length === 0) return;
+
+      const randomIndex = Math.floor(Math.random() * emptyBoard.length);
+      const move = emptyBoard[randomIndex];
+
+      const timer = setTimeout(() => {
+        handleClick(move);
+      }, 400);
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentPlayer, board, handleClick]);
+
   const handleReset = () => {
     setGameState({
       history: [],
