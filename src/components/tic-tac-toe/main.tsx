@@ -83,13 +83,15 @@ const Main = () => {
 
         {size !== null && <Game size={size} />}
 
-        <IconButton
-          color="primary"
-          onClick={() => navigate("/")}
-          sx={{ color: "white" }}
-        >
-          <HomeIcon />
-        </IconButton>
+        <Box sx={{ mt: 3 }}>
+          <IconButton
+            color="primary"
+            onClick={() => navigate("/")}
+            sx={{ color: "white" }}
+          >
+            <HomeIcon />
+          </IconButton>
+        </Box>
       </Box>
     </Container>
   );

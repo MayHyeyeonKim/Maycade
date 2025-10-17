@@ -20,6 +20,8 @@ const Board = ({ board, onClick, size }: BoardProps) => {
     buttonRefs.current[i]?.focus();
   };
 
+  const buttonSize = Math.max(50, 400 / size);
+
   const renderSquare = (i: number) => (
     <CustomButton
       key={i}
@@ -28,7 +30,7 @@ const Board = ({ board, onClick, size }: BoardProps) => {
         buttonRefs.current[i] = el as HTMLButtonElement | null;
       }}
       onClick={() => handleClick(i)}
-      sx={{ width: 100, height: 100 }}
+      sx={{ width: buttonSize, height: buttonSize }}
       disabled={!!board[i]}
     >
       {board[i]}
@@ -40,7 +42,7 @@ const Board = ({ board, onClick, size }: BoardProps) => {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: `repeat(${size}, 100px)`,
+          gridTemplateColumns: `repeat(${size}, ${buttonSize}px)`,
           gap: 1,
         }}
       >

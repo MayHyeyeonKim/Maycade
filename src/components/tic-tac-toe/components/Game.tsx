@@ -111,10 +111,9 @@ const Game = ({ size }: GameProps) => {
         sx={{
           // border: "10px solid #D9C4B0",
           borderRadius: 2,
-          // backgroundColor: "#f8f9fa",
-          maxHeight: "72vh",
-          // px: 2,
-          // py: 2,
+          backgroundColor: "#fff",
+          maxHeight: "80vh",
+          p: 2,
           display: "flex",
           flexDirection: "column",
           // alignItems: "center",
