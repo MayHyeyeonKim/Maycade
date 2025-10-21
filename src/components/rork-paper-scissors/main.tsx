@@ -1,6 +1,7 @@
 import { Container, Typography, Box, IconButton } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
+import CustomBox from "./components/CustomBox";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -31,9 +32,10 @@ const Main = () => {
         <Typography variant="h3" gutterBottom sx={{ color: "white" }}>
           Rock-Paper-Scissors Game
         </Typography>
-        <Typography variant="body1" sx={{ color: "white", mb: 3 }}>
-          Coming soon! Play against the computer.
-        </Typography>
+
+        <CustomBox name="user" />
+        <CustomBox name="computer" />
+
         <IconButton
           color="primary"
           onClick={() => navigate("/")}

@@ -134,7 +134,7 @@ function App() {
                       backgroundColor: "rgba(255, 255, 255, 0.9)",
                       color: "black",
                     }}
-                    onClick={() => handleComingSoon()}
+                    onClick={() => navigate("/rock-paper-scissors")}
                   >
                     <CardContent sx={{ textAlign: "center", p: 3 }}>
                       <PanToolIcon sx={{ fontSize: 60, color: "#667eea" }} />
