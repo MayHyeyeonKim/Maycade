@@ -1,11 +1,28 @@
+import React, { useState } from "react";
 import { Container, Typography, Box, IconButton } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
 import CustomBox from "./components/CustomBox";
+import CustomButton from "./components/CustomButton";
 
 const Main = () => {
   const navigate = useNavigate();
   console.log("Rock-Paper-Scissors main component");
+
+  const [UserChoice, setUserChoice] = useState<string | null>(null);
+  const [ComputerChoice, setComputerChoice] = useState<string | null>(null);
+
+  const choices = [
+    { name: "Rock", beats: "Scissors" },
+    { name: "Paper", beats: "Rock" },
+    { name: "Scissors", beats: "Paper" },
+  ];
+
+  const handleUserChoice = (choice: string) => {
+    setUserChoice(choice);
+    console.log("User choice???", choice);
+  };
+
   return (
     <Container
       maxWidth="md"
@@ -35,6 +52,10 @@ const Main = () => {
 
         <CustomBox name="user" />
         <CustomBox name="computer" />
+
+        <CustomButton name="Rock" onClick={handleUserChoice} />
+        <CustomButton name="Paper" onClick={handleUserChoice} />
+        <CustomButton name="Scissors" onClick={handleUserChoice} />
 
         <IconButton
           color="primary"
