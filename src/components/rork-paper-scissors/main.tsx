@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Container, Typography, Box, IconButton } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
 import CustomBox from "./components/CustomBox";
 import CustomButton from "./components/CustomButton";
+import Score from "./components/Score";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -29,6 +30,14 @@ const Main = () => {
 
     setComputerChoice(handleRandomChoice());
   };
+
+  /** Todo 
+    - Winning logic
+    - Tie logic
+    - Score logic
+    - UI enhancements
+    - Refactoring and optimization
+  */
 
   return (
     <Container
@@ -56,6 +65,8 @@ const Main = () => {
         <Typography variant="h3" gutterBottom sx={{ color: "white" }}>
           Rock-Paper-Scissors Game
         </Typography>
+
+        <Score />
 
         <CustomBox name="user" choice={UserChoice} />
         <CustomBox name="computer" choice={ComputerChoice} />
