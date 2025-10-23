@@ -13,14 +13,21 @@ const Main = () => {
   const [ComputerChoice, setComputerChoice] = useState<string | null>(null);
 
   const choices = [
-    { name: "Rock", beats: "Scissors" },
-    { name: "Paper", beats: "Rock" },
-    { name: "Scissors", beats: "Paper" },
+    { name: "Rock", img: "", beats: "Scissors" },
+    { name: "Paper", img: "", beats: "Rock" },
+    { name: "Scissors", img: "", beats: "Paper" },
   ];
+
+  const handleRandomChoice = () => {
+    const randomIndex = Math.floor(Math.random() * choices.length);
+    return choices[randomIndex].name;
+  };
 
   const handleUserChoice = (choice: string) => {
     setUserChoice(choice);
     console.log("User choice???", choice);
+
+    setComputerChoice(handleRandomChoice());
   };
 
   return (
@@ -50,8 +57,8 @@ const Main = () => {
           Rock-Paper-Scissors Game
         </Typography>
 
-        <CustomBox name="user" />
-        <CustomBox name="computer" />
+        <CustomBox name="user" choice={UserChoice} />
+        <CustomBox name="computer" choice={ComputerChoice} />
 
         <CustomButton name="Rock" onClick={handleUserChoice} />
         <CustomButton name="Paper" onClick={handleUserChoice} />
