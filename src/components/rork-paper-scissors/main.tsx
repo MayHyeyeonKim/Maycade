@@ -1,35 +1,82 @@
 import { useState } from "react";
-import { Container, Typography, Box, IconButton } from "@mui/material";
+import { Container, Typography, Box, IconButton, Button } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
 import CustomBox from "./components/CustomBox";
 import CustomButton from "./components/CustomButton";
 import Score from "./components/Score";
+import { useUser } from "../../contexts/user/useUser";
+import type { Choice } from "./types/choices";
+
+import rockImg from "../../assets/rock.png";
+import paperImg from "../../assets/paper.png";
+import scissorsImg from "../../assets/scissors.png";
+
+import buttonrRockImg from "../../assets/button-rock.png";
+import buttonPaperImg from "../../assets/button-paper.png";
+import buttonScissorsImg from "../../assets/button-scissors.png";
 
 const Main = () => {
   const navigate = useNavigate();
   console.log("Rock-Paper-Scissors main component");
 
-  const [UserChoice, setUserChoice] = useState<string | null>(null);
-  const [ComputerChoice, setComputerChoice] = useState<string | null>(null);
+  const [UserChoice, setUserChoice] = useState<Choice | null>(null);
+  const [ComputerChoice, setComputerChoice] = useState<Choice | null>(null);
 
-  const choices = [
-    { name: "Rock", img: "", beats: "Scissors" },
-    { name: "Paper", img: "", beats: "Rock" },
-    { name: "Scissors", img: "", beats: "Paper" },
+  const { userName } = useUser();
+  console.log("userName???", userName);
+
+  const [player1, setPlayer1] = useState<string>(userName);
+  const [player2, setPlayer2] = useState<string>("Player2");
+
+  const [winner, setWinner] = useState<string | null>(null);
+
+  const choices: Choice[] = [
+    { name: "Rock", img: rockImg, beats: "Scissors" },
+    {
+      name: "Paper",
+      img: paperImg,
+      beats: "Rock",
+    },
+    { name: "Scissors", img: scissorsImg, beats: "Paper" },
   ];
 
   const handleRandomChoice = () => {
     const randomIndex = Math.floor(Math.random() * choices.length);
-    return choices[randomIndex].name;
+    return choices[randomIndex];
   };
 
   const handleUserChoice = (choice: string) => {
-    setUserChoice(choice);
-    console.log("User choice???", choice);
+    const selectedChoice = choices.find((ch) => ch.name === choice)!;
+    setUserChoice(selectedChoice);
+    console.log("User choice???", selectedChoice);
 
-    setComputerChoice(handleRandomChoice());
+    const randomChoice = handleRandomChoice();
+    console.log("Computer choice???", randomChoice);
+    setComputerChoice(randomChoice);
+
+    if (selectedChoice.beats === randomChoice.name) {
+      setWinner(player1);
+    } else if (randomChoice.beats === selectedChoice.name) {
+      setWinner(player2);
+    } else {
+      setWinner("Tie");
+    }
   };
+
+  // const winningLogic = () => {
+  //   if (UserChoice && ComputerChoice) {
+  //     if (UserChoice.beats === ComputerChoice.name) {
+  //       console.log("User wins!");
+  //       setWinner("player1");
+  //     } else if (ComputerChoice.beats === UserChoice.name) {
+  //       console.log("Computer wins!");
+  //       setWinner("player2");
+  //     } else {
+  //       console.log("It's a tie!");
+  //     }
+  //   }
+  // };
 
   /** Todo 
     - Winning logic
@@ -38,6 +85,12 @@ const Main = () => {
     - UI enhancements
     - Refactoring and optimization
   */
+
+  const handleRestart = () => {
+    setWinner(null);
+    setUserChoice(null);
+    setComputerChoice(null);
+  };
 
   return (
     <Container
@@ -65,15 +118,85 @@ const Main = () => {
         <Typography variant="h3" gutterBottom sx={{ color: "white" }}>
           Rock-Paper-Scissors Game
         </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            direction: "row",
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Score />
+          <Button variant="contained" onClick={() => handleRestart()}>
+            {" "}
+            Restart
+          </Button>
+        </Box>
 
-        <Score />
+        <Box
+          sx={{
+            display: "flex",
+            direction: "row",
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CustomBox
+            name={player1}
+            img={UserChoice?.img}
+            choice={UserChoice}
+            winner={
+              winner === null
+                ? " "
+                : winner === "Tie"
+                  ? "Tie"
+                  : winner === player1
+                    ? "Win"
+                    : "Lose"
+            }
+          />
+          <CustomBox
+            name={player2}
+            img={ComputerChoice?.img}
+            choice={ComputerChoice}
+            winner={
+              winner === null
+                ? " "
+                : winner === "Tie"
+                  ? "Tie"
+                  : winner === player2
+                    ? "Win"
+                    : "Lose"
+            }
+          />
+        </Box>
 
-        <CustomBox name="user" choice={UserChoice} />
-        <CustomBox name="computer" choice={ComputerChoice} />
+        <Box
+          sx={{
+            display: "flex",
+            direction: "row",
+            justifyContent: "center",
+            m: 2,
+          }}
+        >
+          <CustomButton
+            name="Rock"
+            img={buttonrRockImg}
+            onClick={handleUserChoice}
+          />
 
-        <CustomButton name="Rock" onClick={handleUserChoice} />
-        <CustomButton name="Paper" onClick={handleUserChoice} />
-        <CustomButton name="Scissors" onClick={handleUserChoice} />
+          <CustomButton
+            name="Paper"
+            img={buttonPaperImg}
+            onClick={handleUserChoice}
+          />
+
+          <CustomButton
+            name="Scissors"
+            img={buttonScissorsImg}
+            onClick={handleUserChoice}
+          />
+        </Box>
 
         <IconButton
           color="primary"
