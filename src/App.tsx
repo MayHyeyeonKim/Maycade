@@ -50,7 +50,7 @@ function App() {
                 p: 5,
                 textAlign: "center",
                 justifyContent: "center",
-                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                background: "linear-gradient(135deg, #000000 0%, #333333 100%)",
                 minHeight: "100vh",
                 width: "100%",
                 color: "white",
@@ -60,7 +60,7 @@ function App() {
                 sx={{
                   borderRadius: 2,
                   p: 4,
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
                   backdropFilter: "blur(10px)",
                   boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
                   overflow: "hidden",
@@ -71,7 +71,7 @@ function App() {
                   component="h1"
                   gutterBottom
                   sx={{
-                    color: "white",
+                    color: "#00ff00",
                     fontWeight: "bold",
                     textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
                   }}
@@ -83,7 +83,7 @@ function App() {
                   component="h4"
                   gutterBottom
                   sx={{
-                    color: "white",
+                    color: "#00ff00",
                     opacity: 0.9,
                     fontStyle: "italic",
                     fontSize: "1.5rem",
@@ -109,17 +109,18 @@ function App() {
                       cursor: "pointer",
                       transition: "transform 0.3s",
                       "&:hover": { transform: "scale(1.05)" },
-                      backgroundColor: "rgba(255, 255, 255, 0.9)",
-                      color: "black",
+                      backgroundColor: "rgba(0, 0, 0, 0.7)",
+                      color: "#00ff00",
+                      border: "2px solid #00ff00",
                     }}
                     onClick={() => navigate("/tic-tac-toe")}
                   >
                     <CardContent sx={{ textAlign: "center", p: 3 }}>
-                      <GridOnIcon sx={{ fontSize: 60, color: "#764ba2" }} />
+                      <GridOnIcon sx={{ fontSize: 60, color: "#00ff00" }} />
                       <Typography variant="h5" gutterBottom>
                         Tic Tac Toe
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "#ffffff" }}>
                         Strategic grid game for two players
                       </Typography>
                     </CardContent>
@@ -131,17 +132,18 @@ function App() {
                       cursor: "pointer",
                       transition: "transform 0.3s",
                       "&:hover": { transform: "scale(1.05)" },
-                      backgroundColor: "rgba(255, 255, 255, 0.9)",
-                      color: "black",
+                      backgroundColor: "rgba(0, 0, 0, 0.7)",
+                      color: "#0000ff",
+                      border: "2px solid #0000ff",
                     }}
                     onClick={() => navigate("/rock-paper-scissors")}
                   >
                     <CardContent sx={{ textAlign: "center", p: 3 }}>
-                      <PanToolIcon sx={{ fontSize: 60, color: "#667eea" }} />
+                      <PanToolIcon sx={{ fontSize: 60, color: "#0000ff" }} />
                       <Typography variant="h5" gutterBottom>
                         Rock-Paper-Scissors
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "#ffffff" }}>
                         Classic hand game against the computer
                       </Typography>
                     </CardContent>
@@ -153,17 +155,18 @@ function App() {
                       cursor: "pointer",
                       transition: "transform 0.3s",
                       "&:hover": { transform: "scale(1.05)" },
-                      backgroundColor: "rgba(255, 255, 255, 0.9)",
-                      color: "black",
+                      backgroundColor: "rgba(0, 0, 0, 0.7)",
+                      color: "#ffff00",
+                      border: "2px solid #ffff00",
                     }}
                     onClick={() => handleComingSoon()}
                   >
                     <CardContent sx={{ textAlign: "center", p: 3 }}>
-                      <ExtensionIcon sx={{ fontSize: 60, color: "#4caf50" }} />
+                      <ExtensionIcon sx={{ fontSize: 60, color: "#ffff00" }} />
                       <Typography variant="h5" gutterBottom>
                         Sudoku
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "#ffffff" }}>
                         Number puzzle game
                       </Typography>
                     </CardContent>
@@ -178,17 +181,14 @@ function App() {
                   position: "fixed",
                   bottom: 20,
                   right: 20,
-                  backgroundColor: "rgba(255, 255, 255, 0.2)",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  color: "#00ff00",
+                  border: "2px solid #00ff00",
                 }}
               >
                 <SettingsIcon />
               </IconButton>
-              <SettingsModal
-                open={open}
-                onClose={handleClose}
-                userName={userName}
-                setUserName={setUserName}
-              />
+              <SettingsModal open={open} onClose={handleClose} userName={userName} setUserName={setUserName} />
             </Box>
           }
         />
@@ -212,10 +212,7 @@ function App() {
               zIndex: 1300,
             }}
           >
-            <Typography
-              variant="h4"
-              sx={{ color: "white", fontWeight: "bold" }}
-            >
+            <Typography variant="h4" sx={{ color: "white", fontWeight: "bold" }}>
               Coming Soon
             </Typography>
           </Box>,

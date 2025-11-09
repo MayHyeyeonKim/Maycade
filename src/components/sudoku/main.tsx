@@ -10,7 +10,7 @@ const Main = () => {
       maxWidth="md"
       sx={{
         textAlign: "center",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        background: "linear-gradient(135deg, #000000 0%, #333333 100%)",
         minHeight: "100vh",
         color: "white",
         display: "flex",
@@ -22,23 +22,19 @@ const Main = () => {
       <Box
         sx={{
           p: 4,
-          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
           borderRadius: 2,
           backdropFilter: "blur(10px)",
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Typography variant="h3" gutterBottom sx={{ color: "white" }}>
+        <Typography variant="h3" gutterBottom sx={{ color: "#00ff00" }}>
           Sudoku Game
         </Typography>
-        <Typography variant="body1" sx={{ color: "white", mb: 3 }}>
+        <Typography variant="body1" sx={{ color: "#00ff00", mb: 3 }}>
           Coming soon! Play against the computer.
         </Typography>
-        <IconButton
-          color="primary"
-          onClick={() => navigate("/")}
-          sx={{ color: "white" }}
-        >
+        <IconButton color="primary" onClick={() => navigate("/")} sx={{ color: "#00ff00" }}>
           <HomeIcon />
         </IconButton>
       </Box>

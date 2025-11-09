@@ -20,14 +20,14 @@ const Log = ({ onReset, gameState, jumpTo }: LogProps) => {
               variant="contained"
               fullWidth
               sx={{
-                color: "#fff",
+                color: "#00ff00",
                 boxShadow: "none",
-                backgroundColor: "#F08787",
+                backgroundColor: "#808080",
                 fontWeight: "bold",
                 textTransform: "none",
                 fontSize: "0.9rem",
                 "&:hover": {
-                  backgroundColor: "#e57373",
+                  backgroundColor: "#666666",
                   boxShadow: "none",
                 },
               }}
@@ -45,8 +45,8 @@ const Log = ({ onReset, gameState, jumpTo }: LogProps) => {
                   sx={{
                     borderRadius: 2,
                     textTransform: "none",
-                    color: "#666",
-                    borderColor: "#ddd",
+                    color: "#00ff00",
+                    borderColor: "#00ff00",
                     fontSize: "0.85rem",
                     "&:hover": {
                       backgroundColor: "#f5f5f5",

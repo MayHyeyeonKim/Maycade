@@ -13,7 +13,7 @@ const CustomButton = ({ name, img, onClick }: CustomButtonProps) => {
         variant="contained"
         // color="secondary"
         onClick={() => onClick(name)}
-        sx={{ m: 1, backgroundColor: "#6d1657ff" }}
+        sx={{ m: 1, backgroundColor: "#808080" }}
       >
         <img
           src={img}

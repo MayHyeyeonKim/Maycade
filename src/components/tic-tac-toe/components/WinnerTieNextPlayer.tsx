@@ -31,18 +31,19 @@ const WinnerTieNextPlayer = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          bgcolor: "background.paper",
+          bgcolor: "#000000",
           boxShadow: 24,
           p: 4,
           borderRadius: 2,
+          border: "2px solid #00ff00",
         }}
       >
         {winner ? (
           <Alert
-            // severity="success"
+            severity="success"
             sx={{
-              backgroundColor: "white",
-              color: "#B6CEB4",
+              backgroundColor: "#000000",
+              color: "#00ff00",
               fontSize: "1.2rem",
               fontWeight: "bold",
               py: 2,

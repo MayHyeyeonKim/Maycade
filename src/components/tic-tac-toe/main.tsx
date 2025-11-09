@@ -37,9 +37,9 @@ const Main = () => {
         // p: 1,
         overflow: "hidden",
         textAlign: "center",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        background: "linear-gradient(135deg, #000000 0%, #333333 100%)",
         minHeight: "100vh",
-        color: "white",
+        color: "#00ff00",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -49,14 +49,14 @@ const Main = () => {
       <Box
         sx={{
           p: 4,
-          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
           borderRadius: 2,
           transform: "scale(0.9)",
           backdropFilter: "blur(10px)",
           boxShadow: "0 2px 32px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Typography variant="h3" gutterBottom sx={{ color: "white" }}>
+        <Typography variant="h3" gutterBottom sx={{ color: "#00ff00" }}>
           Tic Tac Toe Game
         </Typography>
         <Typography variant="body1" sx={{ color: "white", mb: 3 }}>
@@ -73,7 +73,7 @@ const Main = () => {
           {Object.entries(levels).map(([level, size]) => (
             <Button
               key={level}
-              sx={{ mb: 3, backgroundColor: "white" }}
+              sx={{ mb: 3, backgroundColor: "#000000", color: "#00ff00", border: "2px solid #00ff00" }}
               onClick={() => handleLevelClick(size)}
             >
               {level}
@@ -87,7 +87,7 @@ const Main = () => {
           <IconButton
             color="primary"
             onClick={() => navigate("/")}
-            sx={{ color: "white" }}
+            sx={{ color: "#00ff00" }}
           >
             <HomeIcon />
           </IconButton>

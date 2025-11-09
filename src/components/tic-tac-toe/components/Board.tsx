@@ -30,7 +30,7 @@ const Board = ({ board, onClick, size }: BoardProps) => {
         buttonRefs.current[i] = el as HTMLButtonElement | null;
       }}
       onClick={() => handleClick(i)}
-      sx={{ width: buttonSize, height: buttonSize }}
+      sx={{ width: buttonSize, height: buttonSize, fontSize: buttonSize * 0.8, color: "#00ff88" }}
       disabled={!!board[i]}
     >
       {board[i]}

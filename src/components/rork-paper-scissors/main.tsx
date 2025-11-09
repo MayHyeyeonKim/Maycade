@@ -97,7 +97,7 @@ const Main = () => {
       maxWidth="md"
       sx={{
         textAlign: "center",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        background: "linear-gradient(135deg, #000000 0%, #333333 100%)",
         minHeight: "100vh",
         color: "white",
         display: "flex",
@@ -109,13 +109,13 @@ const Main = () => {
       <Box
         sx={{
           p: 4,
-          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
           borderRadius: 2,
           backdropFilter: "blur(10px)",
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Typography variant="h3" gutterBottom sx={{ color: "white" }}>
+        <Typography variant="h3" gutterBottom sx={{ color: "#00ff00" }}>
           Rock-Paper-Scissors Game
         </Typography>
         <Box
@@ -145,29 +145,13 @@ const Main = () => {
             name={player1}
             img={UserChoice?.img}
             choice={UserChoice}
-            winner={
-              winner === null
-                ? " "
-                : winner === "Tie"
-                  ? "Tie"
-                  : winner === player1
-                    ? "Win"
-                    : "Lose"
-            }
+            winner={winner === null ? " " : winner === "Tie" ? "Tie" : winner === player1 ? "Win" : "Lose"}
           />
           <CustomBox
             name={player2}
             img={ComputerChoice?.img}
             choice={ComputerChoice}
-            winner={
-              winner === null
-                ? " "
-                : winner === "Tie"
-                  ? "Tie"
-                  : winner === player2
-                    ? "Win"
-                    : "Lose"
-            }
+            winner={winner === null ? " " : winner === "Tie" ? "Tie" : winner === player2 ? "Win" : "Lose"}
           />
         </Box>
 
@@ -179,30 +163,14 @@ const Main = () => {
             m: 2,
           }}
         >
-          <CustomButton
-            name="Rock"
-            img={buttonrRockImg}
-            onClick={handleUserChoice}
-          />
+          <CustomButton name="Rock" img={buttonrRockImg} onClick={handleUserChoice} />
 
-          <CustomButton
-            name="Paper"
-            img={buttonPaperImg}
-            onClick={handleUserChoice}
-          />
+          <CustomButton name="Paper" img={buttonPaperImg} onClick={handleUserChoice} />
 
-          <CustomButton
-            name="Scissors"
-            img={buttonScissorsImg}
-            onClick={handleUserChoice}
-          />
+          <CustomButton name="Scissors" img={buttonScissorsImg} onClick={handleUserChoice} />
         </Box>
 
-        <IconButton
-          color="primary"
-          onClick={() => navigate("/")}
-          sx={{ color: "white" }}
-        >
+        <IconButton color="primary" onClick={() => navigate("/")} sx={{ color: "white" }}>
           <HomeIcon />
         </IconButton>
       </Box>

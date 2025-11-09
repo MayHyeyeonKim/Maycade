@@ -22,9 +22,7 @@ const Game = ({ size }: GameProps) => {
 
   console.log("gameState: ", gameState);
 
-  const [board, setBoard] = useState<Array<"X" | "O" | null>>(
-    Array(size * size).fill(null)
-  );
+  const [board, setBoard] = useState<Array<"X" | "O" | null>>(Array(size * size).fill(null));
 
   const { userName } = useUser();
   const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">("X");
@@ -52,14 +50,8 @@ const Game = ({ size }: GameProps) => {
   /** Computer auto play */
 
   useEffect(() => {
-    if (
-      currentPlayer === "O" &&
-      !calculateWinner(board) &&
-      !calculateTie(board)
-    ) {
-      const emptyBoard = board
-        .map((v, i) => (v === null ? i : null))
-        .filter((v) => v !== null) as number[];
+    if (currentPlayer === "O" && !calculateWinner(board) && !calculateTie(board)) {
+      const emptyBoard = board.map((v, i) => (v === null ? i : null)).filter((v) => v !== null) as number[];
 
       if (emptyBoard.length === 0) return;
 
@@ -81,7 +73,7 @@ const Game = ({ size }: GameProps) => {
     });
     setBoard(Array(9).fill(null));
     setCurrentPlayer("X");
-    setPlayer1("Player1");
+    setPlayer1(userName);
     setPlayer2("Player2");
     setIsEditMode(true);
   };
@@ -111,7 +103,7 @@ const Game = ({ size }: GameProps) => {
         sx={{
           // border: "10px solid #D9C4B0",
           borderRadius: 2,
-          backgroundColor: "#fff",
+          backgroundColor: "#000000",
           maxHeight: "80vh",
           p: 2,
           display: "flex",
@@ -138,18 +130,15 @@ const Game = ({ size }: GameProps) => {
         <Box
           sx={{
             borderRadius: 3,
-            backgroundColor: "#fff",
+            backgroundColor: "#000000",
             maxWidth: 1000,
             mx: "auto",
-            // border: "2px solid #D9C4B0",
+            border: "2px solid #00ff00",
           }}
         >
-          <Box sx={{ display: "flex", gap: 3, m: 2 }}>
+          <Box sx={{ display: "flex", gap: 3, m: 2, backgroundColor: "#000000", p: 2, borderRadius: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <Typography
-                variant="h6"
-                sx={{ color: "#91ADC8", fontWeight: "bold" }}
-              >
+              <Typography variant="h6" sx={{ color: "#00ff00", fontWeight: "bold" }}>
                 X
               </Typography>
               <TextField
@@ -161,10 +150,7 @@ const Game = ({ size }: GameProps) => {
               />
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <Typography
-                variant="h6"
-                sx={{ color: "#BB6653", fontWeight: "bold" }}
-              >
+              <Typography variant="h6" sx={{ color: "#ff0000", fontWeight: "bold" }}>
                 O
               </Typography>
               <TextField
@@ -175,9 +161,7 @@ const Game = ({ size }: GameProps) => {
                 disabled={!isEdit}
               />
             </Box>
-            <Button onClick={() => setIsEditMode(!isEdit)}>
-              {isEdit ? "Save" : "Edit"}
-            </Button>
+            <Button onClick={() => setIsEditMode(!isEdit)}>{isEdit ? "Save" : "Edit"}</Button>
           </Box>
         </Box>
 
@@ -194,9 +178,7 @@ const Game = ({ size }: GameProps) => {
         //   justifyContent: "center",
         // }}
         >
-          <Box
-            sx={{ p: 2, m: 4, textAlign: "center", justifyContent: "center" }}
-          >
+          <Box sx={{ p: 2, m: 4, textAlign: "center", justifyContent: "center" }}>
             <WinnerTieNextPlayer
               winner={winner}
               tie={tie}
@@ -220,11 +202,7 @@ const Game = ({ size }: GameProps) => {
               sx={{ mt: 2 }}
             >
               <Board board={board} onClick={handleClick} size={size} />
-              <Log
-                onReset={handleReset}
-                gameState={gameState}
-                jumpTo={jumpTo}
-              />
+              <Log onReset={handleReset} gameState={gameState} jumpTo={jumpTo} />
             </Stack>
           </Box>
         </Box>
