@@ -191,7 +191,7 @@ const Game = ({ size }: GameProps) => {
 
           <Box sx={{ textAlign: "center", mt: 3 }}>
             <Typography variant="body1" color="textSecondary">
-              Enjoy playing Tic Tac Toe! The game board is below.
+              Click a square to make your move.
             </Typography>
 
             <Divider sx={{ my: 2 }} />

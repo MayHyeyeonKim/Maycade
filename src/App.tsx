@@ -121,7 +121,7 @@ function App() {
                         Tic Tac Toe
                       </Typography>
                       <Typography variant="body2" sx={{ color: "#ffffff" }}>
-                        Strategic grid game for two players
+                        Strategic Tic Tac Toe against the computer.
                       </Typography>
                     </CardContent>
                   </Card>
