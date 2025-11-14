@@ -105,13 +105,17 @@ function App() {
                 >
                   <Card
                     sx={{
-                      minWidth: 300,
+                      width: 320,
+                      height: 220,
                       cursor: "pointer",
                       transition: "transform 0.3s",
                       "&:hover": { transform: "scale(1.05)" },
                       backgroundColor: "rgba(0, 0, 0, 0.7)",
                       color: "#00ff00",
                       border: "2px solid #00ff00",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                     onClick={() => navigate("/tic-tac-toe")}
                   >
@@ -128,13 +132,17 @@ function App() {
 
                   <Card
                     sx={{
-                      minWidth: 300,
+                      width: 320,
+                      height: 220,
                       cursor: "pointer",
                       transition: "transform 0.3s",
                       "&:hover": { transform: "scale(1.05)" },
                       backgroundColor: "rgba(0, 0, 0, 0.7)",
                       color: "#0000ff",
                       border: "2px solid #0000ff",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                     onClick={() => navigate("/rock-paper-scissors")}
                   >
@@ -151,13 +159,17 @@ function App() {
 
                   <Card
                     sx={{
-                      minWidth: 300,
+                      width: 320,
+                      height: 220,
                       cursor: "pointer",
                       transition: "transform 0.3s",
                       "&:hover": { transform: "scale(1.05)" },
                       backgroundColor: "rgba(0, 0, 0, 0.7)",
                       color: "#ffff00",
                       border: "2px solid #ffff00",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                     onClick={() => handleComingSoon()}
                   >
@@ -188,7 +200,12 @@ function App() {
               >
                 <SettingsIcon />
               </IconButton>
-              <SettingsModal open={open} onClose={handleClose} userName={userName} setUserName={setUserName} />
+              <SettingsModal
+                open={open}
+                onClose={handleClose}
+                userName={userName}
+                setUserName={setUserName}
+              />
             </Box>
           }
         />
@@ -212,7 +229,10 @@ function App() {
               zIndex: 1300,
             }}
           >
-            <Typography variant="h4" sx={{ color: "white", fontWeight: "bold" }}>
+            <Typography
+              variant="h4"
+              sx={{ color: "white", fontWeight: "bold" }}
+            >
               Coming Soon
             </Typography>
           </Box>,
