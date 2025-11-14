@@ -92,7 +92,7 @@ function App() {
                     animation: "marquee 10s linear infinite",
                   }}
                 >
-                  Welcome {userName}!
+                  {`Welcome ${userName}! `.repeat(10)}
                 </Typography>
                 <Box
                   sx={{
