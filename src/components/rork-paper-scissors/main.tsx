@@ -1,9 +1,21 @@
-import { useState } from "react";
-import { Container, Typography, Box, IconButton, Button } from "@mui/material";
+import { useState, useEffect } from "react";
+import {
+  Container,
+  Typography,
+  Box,
+  IconButton,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
+import PanToolIcon from "@mui/icons-material/PanTool";
+import DescriptionIcon from "@mui/icons-material/Description";
+import ContentCutIcon from "@mui/icons-material/ContentCut";
 import { useNavigate } from "react-router-dom";
 import CustomBox from "./components/CustomBox";
-import CustomButton from "./components/CustomButton";
 import Score from "./components/Score";
 import { useUser } from "../../contexts/user/useUser";
 import type { Choice } from "./types/choices";
@@ -11,10 +23,6 @@ import type { Choice } from "./types/choices";
 import rockImg from "../../assets/rock.png";
 import paperImg from "../../assets/paper.png";
 import scissorsImg from "../../assets/scissors.png";
-
-import buttonrRockImg from "../../assets/button-rock.png";
-import buttonPaperImg from "../../assets/button-paper.png";
-import buttonScissorsImg from "../../assets/button-scissors.png";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -27,9 +35,13 @@ const Main = () => {
   console.log("userName???", userName);
 
   const [player1, setPlayer1] = useState<string>(userName);
-  const [player2, setPlayer2] = useState<string>("Player2");
+  const [player2, setPlayer2] = useState<string>("Cpomputer");
 
   const [winner, setWinner] = useState<string | null>(null);
+  const [player1Score, setPlayer1Score] = useState<number>(0);
+  const [player2Score, setPlayer2Score] = useState<number>(0);
+  const [showGameOverDialog, setShowGameOverDialog] = useState<boolean>(false);
+  const [gameWinner, setGameWinner] = useState<string | null>(null);
 
   const choices: Choice[] = [
     { name: "Rock", img: rockImg, beats: "Scissors" },
@@ -46,6 +58,16 @@ const Main = () => {
     return choices[randomIndex];
   };
 
+  // 점수 차이가 3 이상인지 체크
+  useEffect(() => {
+    const scoreDifference = Math.abs(player1Score - player2Score);
+    if (scoreDifference >= 3) {
+      const winner = player1Score > player2Score ? player1 : player2;
+      setGameWinner(winner);
+      setShowGameOverDialog(true);
+    }
+  }, [player1Score, player2Score, player1, player2]);
+
   const handleUserChoice = (choice: string) => {
     const selectedChoice = choices.find((ch) => ch.name === choice)!;
     setUserChoice(selectedChoice);
@@ -57,36 +79,27 @@ const Main = () => {
 
     if (selectedChoice.beats === randomChoice.name) {
       setWinner(player1);
+      setPlayer1Score((prev) => prev + 1);
     } else if (randomChoice.beats === selectedChoice.name) {
       setWinner(player2);
+      setPlayer2Score((prev) => prev + 1);
     } else {
       setWinner("Tie");
     }
   };
 
-  // const winningLogic = () => {
-  //   if (UserChoice && ComputerChoice) {
-  //     if (UserChoice.beats === ComputerChoice.name) {
-  //       console.log("User wins!");
-  //       setWinner("player1");
-  //     } else if (ComputerChoice.beats === UserChoice.name) {
-  //       console.log("Computer wins!");
-  //       setWinner("player2");
-  //     } else {
-  //       console.log("It's a tie!");
-  //     }
-  //   }
-  // };
-
-  /** Todo 
-    - Winning logic
-    - Tie logic
-    - Score logic
-    - UI enhancements
-    - Refactoring and optimization
-  */
-
   const handleRestart = () => {
+    setWinner(null);
+    setUserChoice(null);
+    setComputerChoice(null);
+    setPlayer1Score(0);
+    setPlayer2Score(0);
+    setGameWinner(null);
+    setShowGameOverDialog(false);
+  };
+
+  const handleContinue = () => {
+    setShowGameOverDialog(false);
     setWinner(null);
     setUserChoice(null);
     setComputerChoice(null);
@@ -124,9 +137,14 @@ const Main = () => {
             direction: "row",
             alignContent: "center",
             justifyContent: "center",
+            gap: 2,
           }}
         >
-          <Score />
+          <Score
+            winner={winner}
+            player1Score={player1Score}
+            player2Score={player2Score}
+          />
           <Button variant="contained" onClick={() => handleRestart()}>
             {" "}
             Restart
@@ -145,13 +163,29 @@ const Main = () => {
             name={player1}
             img={UserChoice?.img}
             choice={UserChoice}
-            winner={winner === null ? " " : winner === "Tie" ? "Tie" : winner === player1 ? "Win" : "Lose"}
+            winner={
+              winner === null
+                ? " "
+                : winner === "Tie"
+                ? "Tie"
+                : winner === player1
+                ? "Win"
+                : "Lose"
+            }
           />
           <CustomBox
             name={player2}
             img={ComputerChoice?.img}
             choice={ComputerChoice}
-            winner={winner === null ? " " : winner === "Tie" ? "Tie" : winner === player2 ? "Win" : "Lose"}
+            winner={
+              winner === null
+                ? " "
+                : winner === "Tie"
+                ? "Tie"
+                : winner === player2
+                ? "Win"
+                : "Lose"
+            }
           />
         </Box>
 
@@ -160,20 +194,146 @@ const Main = () => {
             display: "flex",
             direction: "row",
             justifyContent: "center",
+            gap: 3,
             m: 2,
           }}
         >
-          <CustomButton name="Rock" img={buttonrRockImg} onClick={handleUserChoice} />
+          <Button
+            variant="outlined"
+            onClick={() => handleUserChoice("Rock")}
+            sx={{
+              fontSize: "3rem",
+              padding: "20px 30px",
+              borderColor: "#00ff00",
+              color: "white",
+              borderWidth: 2,
+              borderRadius: 2,
+              transition: "all 0.3s",
+              "&:hover": {
+                borderColor: "#00ff00",
+                backgroundColor: "rgba(0, 255, 0, 0.1)",
+                transform: "scale(1.1)",
+                borderWidth: 3,
+              },
+            }}
+          >
+            <PanToolIcon fontSize="inherit" />
+          </Button>
 
-          <CustomButton name="Paper" img={buttonPaperImg} onClick={handleUserChoice} />
+          <Button
+            variant="outlined"
+            onClick={() => handleUserChoice("Paper")}
+            sx={{
+              fontSize: "3rem",
+              padding: "20px 30px",
+              borderColor: "#00ff00",
+              color: "white",
+              borderWidth: 2,
+              borderRadius: 2,
+              transition: "all 0.3s",
+              "&:hover": {
+                borderColor: "#00ff00",
+                backgroundColor: "rgba(0, 255, 0, 0.1)",
+                transform: "scale(1.1)",
+                borderWidth: 3,
+              },
+            }}
+          >
+            <DescriptionIcon fontSize="inherit" />
+          </Button>
 
-          <CustomButton name="Scissors" img={buttonScissorsImg} onClick={handleUserChoice} />
+          <Button
+            variant="outlined"
+            onClick={() => handleUserChoice("Scissors")}
+            sx={{
+              fontSize: "3rem",
+              padding: "20px 30px",
+              borderColor: "#00ff00",
+              color: "white",
+              borderWidth: 2,
+              borderRadius: 2,
+              transition: "all 0.3s",
+              "&:hover": {
+                borderColor: "#00ff00",
+                backgroundColor: "rgba(0, 255, 0, 0.1)",
+                transform: "scale(1.1)",
+                borderWidth: 3,
+              },
+            }}
+          >
+            <ContentCutIcon fontSize="inherit" />
+          </Button>
         </Box>
 
-        <IconButton color="primary" onClick={() => navigate("/")} sx={{ color: "white" }}>
+        <IconButton
+          color="primary"
+          onClick={() => navigate("/")}
+          sx={{ color: "white" }}
+        >
           <HomeIcon />
         </IconButton>
       </Box>
+
+      {/* Game Over Dialog */}
+      <Dialog
+        open={showGameOverDialog}
+        onClose={() => {}}
+        sx={{
+          "& .MuiDialog-paper": {
+            backgroundColor: "rgba(0, 0, 0, 0.9)",
+            color: "white",
+            border: "2px solid #00ff00",
+          },
+        }}
+      >
+        <DialogTitle sx={{ color: "#00ff00", textAlign: "center" }}>
+          {gameWinner === player2 ? "🤖 Oh No! 🤖" : "🎉 Game Over! 🎉"}
+        </DialogTitle>
+        <DialogContent>
+          <Typography variant="h5" sx={{ textAlign: "center", mb: 2 }}>
+            Winner: {gameWinner}!
+          </Typography>
+          {gameWinner === player2 ? (
+            <>
+              <Typography
+                sx={{ textAlign: "center", fontSize: "1.1rem", mb: 1 }}
+              >
+                😅 Seriously? You just lost to a clueless computer...
+              </Typography>
+              <Typography sx={{ textAlign: "center", fontStyle: "italic" }}>
+                Care to redeem yourself and try again?
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Typography sx={{ textAlign: "center" }}>
+                Congratulations! You've dominated the game! 🏆
+              </Typography>
+              <Typography sx={{ textAlign: "center", mt: 1 }}>
+                Want to keep the winning streak going?
+              </Typography>
+            </>
+          )}
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: "center", pb: 3 }}>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={handleContinue}
+            sx={{ minWidth: 100 }}
+          >
+            Yes
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleRestart}
+            sx={{ minWidth: 100 }}
+          >
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };
