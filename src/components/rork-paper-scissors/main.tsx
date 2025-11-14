@@ -19,6 +19,7 @@ import CustomBox from "./components/CustomBox";
 import Score from "./components/Score";
 import { useUser } from "../../contexts/user/useUser";
 import type { Choice } from "./types/choices";
+import PlayerSettings from "../../shared/components/PlayerSettings";
 
 import rockImg from "../../assets/rock.png";
 import paperImg from "../../assets/paper.png";
@@ -35,7 +36,7 @@ const Main = () => {
   console.log("userName???", userName);
 
   const [player1, setPlayer1] = useState<string>(userName);
-  const [player2, setPlayer2] = useState<string>("Cpomputer");
+  const [player2, setPlayer2] = useState<string>("Computer");
 
   const [winner, setWinner] = useState<string | null>(null);
   const [player1Score, setPlayer1Score] = useState<number>(0);
@@ -58,7 +59,7 @@ const Main = () => {
     return choices[randomIndex];
   };
 
-  // 점수 차이가 3 이상인지 체크
+  // Check for game over condition
   useEffect(() => {
     const scoreDifference = Math.abs(player1Score - player2Score);
     if (scoreDifference >= 3) {
@@ -131,6 +132,18 @@ const Main = () => {
         <Typography variant="h3" gutterBottom sx={{ color: "#00ff00" }}>
           Rock-Paper-Scissors Game
         </Typography>
+
+        <PlayerSettings
+          player1={player1}
+          player2={player2}
+          onPlayer1Change={setPlayer1}
+          onPlayer2Change={setPlayer2}
+          player1Label="👤"
+          player2Label="🤖"
+          player1Color="#00ff00"
+          player2Color="#0000ff"
+        />
+
         <Box
           sx={{
             display: "flex",
